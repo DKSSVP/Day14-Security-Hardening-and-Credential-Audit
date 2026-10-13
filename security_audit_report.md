@@ -1,41 +1,41 @@
-# Day14 Security Audit Report
+﻿# Day14 - Security Hardening & Credential Audit Report
 
-## Objective
-Audit Day1–Day13 projects for hardcoded credentials, verify environment-variable protection, and review Git tracking and history for sensitive files.
+## 1. Objective
+Audit the Day1-Day13 project folders for hardcoded API credentials, verify environment-variable configuration, and check Git tracking and history for sensitive files.
 
-## Scope
-- 13 project folders from Day1 through Day13
-- Python source and selected configuration files
-- Git-tracked filenames and Git history filenames
-- Day14 `.env.example` and `.gitignore`
+## 2. Tools and Technologies
+- Python
+- python-dotenv
+- Git and GitHub
+- PowerShell-based pattern scanning
+- Environment variables and .gitignore
 
-## Configuration
-The `.env.example` file contains placeholders for:
+## 3. Environment Variable Configuration
+The following variables were configured and successfully detected by the Day14 audit script:
+
 - OPENROUTER_API_KEY
 - SHEETDB_API_URL_1
 - SHEETDB_API_URL_2
 - FIREBASE_CREDENTIALS_PATH_1
 - FIREBASE_CREDENTIALS_PATH_2
 
-The actual `.env` file is excluded by `.gitignore`. The environment-variable check initially reported all five variables as missing; configuration and use by individual projects still require verification.
+Actual configuration values are kept in .env. The .env.example file contains placeholder values only.
 
-## Scan Results
-- The preliminary source/configuration pattern scan reported no matches.
-- The initial Git-history pattern scan reported no possible matches for its selected patterns.
-- The tracked-filename scan reported no matching sensitive filenames in the repositories shown.
-- The Git-history filename scan reported no matching sensitive filenames.
-- Gitleaks was unavailable and did not run.
+## 4. Git Protection
+- Added .env and sensitive credential-file patterns to .gitignore.
+- Verified that Git ignores .env.
+- Verified that .env.example is not ignored.
+- Committed only the intended Day14 deliverables; .env was excluded.
 
-## Limitations
-These checks use limited patterns and filename filters. They do not prove that all secrets are absent from source code, untracked files, other file types, remote repositories, or Git history. No full Gitleaks scan was completed.
+## 5. Security Scan Results
+- The Day14 audit script scanned the Day1-Day13 project folders and reported zero potential secret matches.
+- A preliminary Git-history pattern scan reported no matches for the selected patterns.
+- The tracked-filename scan found no matching sensitive filenames in the repositories shown.
+- The Git-history filename scan found no matching sensitive filenames.
+- Gitleaks was not installed, so a Gitleaks scan was not completed.
 
-## Remediation and Follow-up
-- Keep actual credentials in `.env` or appropriate protected credential files.
-- Keep `.env` and Firebase service-account files out of Git.
-- Commit only placeholder values in `.env.example`.
-- Verify the environment variables required by each project.
-- Complete a broader secret scan and review any flagged results.
-- Rotate any credential confirmed to have been exposed.
+## 6. Limitations
+The scans used limited patterns and filename filters. These results do not prove that all credentials are absent from source code, other file types, remote repositories, or Git history. The environment-variable check confirms that values are loaded in the Day14 environment; it does not prove that every earlier project has been migrated to use them.
 
-## Conclusion
-The checks completed so far reported no matches for the tested patterns or sensitive filenames. The audit remains preliminary until the configuration is verified and a broader secret scan is completed.
+## 7. Conclusion
+The completed preliminary checks reported no potential secret matches for the patterns tested. Environment-variable detection and .gitignore verification succeeded. A broader secret scan and further review are still required before certifying that all Day1-Day13 repositories are free of exposed credentials.

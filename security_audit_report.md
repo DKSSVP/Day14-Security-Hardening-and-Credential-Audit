@@ -29,9 +29,12 @@ The actual configuration values are stored in `.env`. The `.env.example` file co
 ## 5. Security Scan Results
 - The Day14 audit script reported zero potential secret matches across the scanned Day1-Day13 folders.
 - The preliminary Git-history pattern scan reported no matches for the selected patterns.
-- The tracked-filename scan found no matching sensitive filenames in the repositories shown.
+- The tracked-filename scan found no matching sensitive filenames in the repositories checked.
 - The Git-history filename scan found no matching sensitive filenames.
-- Gitleaks was not installed, so a Gitleaks scan was not completed.
+- Gitleaks v8.30.1 was installed and used to scan the available Git history for Day1-Day13. No leaks were found in the scanned history.
+- The final source scan processed approximately 92.77 KB and reported no leaks in the defined scan scope.
+- The final Day14 Git-history scan covered five commits and reported no leaks.
+- Certain credential files, environment files, caches, and downloaded Google Sheets files were excluded from the final source scan. Their exclusion does not establish that they are safe.
 
 ## 6. Limitations
 The scans used limited patterns and filename filters. These results do not prove that all secrets are absent from source code, other file types, remote repositories, or Git history. The environment-variable check confirms that values are loaded in the Day14 environment; it does not prove that every earlier project has been migrated to use them.
